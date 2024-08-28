@@ -1,7 +1,7 @@
 ## web-security
 
 #### 注意
-cookie不区分协议、端口号，即相同域下，cookie在同域下是共享的，不区分协议和端口号。本示例如想正常运行，需要将server-normal项目运行在127.0.0.1上；而server-hacker运行在localhost上
+cookie在同域下是共享的，不区分协议和端口号。本示例如想正常运行，需要将server-normal项目运行在127.0.0.1上；而server-hacker运行在localhost上
 
 ### CRSF 
 
