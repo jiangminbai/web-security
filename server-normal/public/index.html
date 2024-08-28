@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>normal</title>
+  <style>
+    .flex {
+      display: flex;
+      margin-top: 50px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .flex button {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex">
+    <button id="login">登录设置Cookie</button>
+    <button id="lax">登录设置Cookie 加SameSite=Lax</button>
+    <button id="strict">登录设置Cookie 加SameSite=Strict</button>
+    <button id="logout">登出清除Cookie</button>
+    <button id="transfer">转账</button>
+    
+    <button id="token">登录设置Cookie并获取crsf token</button>
+    <button id="transfer_token">使用token转账</button>
+  </div>
+  <script type="text/javascript">
+    const login = document.getElementById('login')
+    login.onclick = function () {
+      fetch('http://127.0.0.1:3000/login')
+    }
+    const lax = document.getElementById('lax')
+    lax.onclick = function () {
+      fetch('http://127.0.0.1:3000/lax')
+    }
+    const strict = document.getElementById('strict')
+    strict.onclick = function () {
+      fetch('http://127.0.0.1:3000/strict')
+    }
+    let crsf_token
+    const token = document.getElementById('token')
+    token.onclick = function () {
+      fetch('http://127.0.0.1:3000/token')
+        .then(res => res.json())
+        .then(res => {
+          console.log(res)
+          crsf_token = res.crsf_token
+        })
+    }
+    const logout = document.getElementById('logout')
+    logout.onclick = function () {
+      fetch('http://127.0.0.1:3000/logout')
+    }
+    const transfer = document.getElementById('transfer')
+    transfer.onclick = function () {
+      fetch('http://127.0.0.1:3000/transfer?cost=200')
+    }
+    const transfer_token = document.getElementById('transfer_token')
+    transfer_token.onclick = function () {
+      fetch('http://127.0.0.1:3000/transfer_token', {
+        method: 'post',
+        body: JSON.stringify({
+          cost: 200,
+          crsf_token
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+  </script>
+</body>
+</html>
